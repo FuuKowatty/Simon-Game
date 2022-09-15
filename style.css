@@ -86,7 +86,7 @@ body {
     height: 48%;
     position: absolute;
     transition: all .4s ease-in-out;
-    filter: brightness(85%);
+    filter: brightness(75%);
 }
 
 .simonBtn button {
@@ -113,5 +113,5 @@ body {
 
 .clicked {
     transform: scale(101%);
-    filter: blur(1px) brightness(100%);
+    filter:  blur(2px) brightness(100%);
 }
