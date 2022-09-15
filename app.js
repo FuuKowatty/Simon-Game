@@ -7,7 +7,7 @@ let score = 0;
 simonBtns.forEach(e => e.addEventListener('click', () => {
     clickAnimation(e.parentNode);
 
-    return e.parentNode
+   
 }))
 
 
@@ -56,5 +56,5 @@ function displaySeq(result) {
 }
 
 function clickPhase(arr) {
-    
+
 }
