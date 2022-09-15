@@ -4,11 +4,6 @@ const scoreContainer = document.querySelector('.score');
 const btnContainer = document.querySelectorAll('.simonBtn');
 let score = 0;
 
-simonBtns.forEach(e => e.addEventListener('click', () => {
-    clickAnimation(e.parentNode);
-
-   
-}))
 
 
 startBtn.addEventListener('click', () => {
@@ -56,5 +51,9 @@ function displaySeq(result) {
 }
 
 function clickPhase(arr) {
-
+    simonBtns.forEach(e => e.addEventListener('click', () => {
+        let clickedEl = e.parentNode.dataset.color;
+        if(clickedEl === arr[0]) console.log('fiutek')
+    }))
+ 
 }
