@@ -9,8 +9,8 @@ let score = 0;
 startBtn.addEventListener('click', () => {
     score++; scoreContainer.innerText = score;
     const result = drawSeq();
-    displaySeq(result);
-    clickPhase(result)
+    displaySeq([...result]);
+    clickPhase([...result])
 })
 
 function clickAnimation(parentItem) {
@@ -35,9 +35,9 @@ function drawSeq() {
     return result;
 }
 
-function displaySeq(result) {
+function displaySeq(arr) {
 
-    let arr = result;
+
     setInterval( () => {
         if(arr.length === 0)  clearInterval();
         let chose = arr.shift();
@@ -48,12 +48,34 @@ function displaySeq(result) {
             }
         })
     }, 1000)
+
 }
 
 function clickPhase(arr) {
+    let counter = 0;
     simonBtns.forEach(e => e.addEventListener('click', () => {
         let clickedEl = e.parentNode.dataset.color;
-        if(clickedEl === arr[0]) console.log('fiutek')
+        if(clickedEl !== arr[counter++] )  {//if user clicked not right
+            roundResult(false)
+        }  else {
+            roundResult(true)
+        }
+        
     }))
  
 }
+
+function roundResult(bol) {
+    const textInformation = document.querySelector('.text');
+    textInformation.classList.remove('lostInfo');
+    textInformation.classList.remove('winInfo');
+    
+    if(bol === false) {
+        textInformation.classList.add('lostInfo');
+        textInformation.textContent = 'LOST!!' ;
+    } else if(bol === true) {
+        textInformation.classList.add('winInfo');
+        textInformation.textContent = 'GOOD' ;
+    }
+}
+

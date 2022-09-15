@@ -115,3 +115,11 @@ body {
     transform: scale(101%);
     filter:  blur(2px) brightness(100%);
 }
+
+.lostInfo {
+    color: red;
+}
+
+.winInfo {
+    color: rgb(0, 219, 0);
+}
