@@ -85,6 +85,8 @@ body {
     width: 48%;
     height: 48%;
     position: absolute;
+    transition: all .4s ease-in-out;
+    filter: brightness(85%);
 }
 
 .simonBtn button {
@@ -110,6 +112,6 @@ body {
 }
 
 .clicked {
-    transform: scale(1.1);
-    transition: all .3s ease-in-out;
+    transform: scale(101%);
+    filter: blur(1px) brightness(100%);
 }

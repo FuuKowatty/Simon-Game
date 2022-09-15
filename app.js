@@ -6,6 +6,8 @@ simonBtns.forEach(e => e.addEventListener('click', () => {
 }))
 
 function clickAnimation(item) {
-    console.log(item)
-    simonBtnContainer[item].classList.add('clicked')
+    let parentItem = item.parentNode;
+    parentItem.classList.add('clicked');
+    setTimeout( () => {parentItem.classList.remove('clicked')}, 400)
+    
 }
