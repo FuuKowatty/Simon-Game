@@ -2,15 +2,18 @@ const simonBtns = document.querySelectorAll('.simonBtn button');
 const startBtn = document.querySelector('.start');
 const scoreContainer = document.querySelector('.score');
 const btnContainer = document.querySelectorAll('.simonBtn');
+const textInformation = document.querySelector('.text');
 let score = 0;
 
 
 
 startBtn.addEventListener('click', () => {
+    startNextRound();
+
     score++; scoreContainer.innerText = score;
     const result = drawSeq();
     displaySeq([...result]);
-    clickPhase([...result])
+    clickPhase([...result])    
 })
 
 function clickAnimation(parentItem) {
@@ -53,20 +56,25 @@ function displaySeq(arr) {
 
 function clickPhase(arr) {
     let counter = 0;
-    simonBtns.forEach(e => e.addEventListener('click', () => {
-        let clickedEl = e.parentNode.dataset.color;
+    simonBtns.forEach(e => e.addEventListener('click', validor) )
+    function validor(e) {      
+        clickedEl = e.currentTarget.parentNode.dataset.color
         if(clickedEl !== arr[counter] )  {//if user clicked not right
-            roundResult(false)
+            roundResult(false);
+            simonBtns.forEach(e => e.removeEventListener('click', validor))
+
         }  else if(clickedEl === arr[counter] && counter === arr.length-1) {
-            roundResult(true)
+            roundResult(true);
+            simonBtns.forEach(e => e.removeEventListener('click', validor))
         }
         counter++
-    }))
- 
+    }
 }
+ 
 
-function roundResult(bol) {
-    const textInformation = document.querySelector('.text');
+
+function roundResult(bol, f) {
+    
     textInformation.classList.remove('lostInfo');
     textInformation.classList.remove('winInfo');
     
@@ -77,4 +85,12 @@ function roundResult(bol) {
         textInformation.classList.add('winInfo');
         textInformation.textContent = 'GOOD' ;
     }
+}
+
+function startNextRound() {
+    textInformation.textContent = "SIMON"
+    textInformation.classList.remove('lostInfo');
+    textInformation.classList.remove('winInfo');
+
+
 }
