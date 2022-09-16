@@ -55,12 +55,12 @@ function clickPhase(arr) {
     let counter = 0;
     simonBtns.forEach(e => e.addEventListener('click', () => {
         let clickedEl = e.parentNode.dataset.color;
-        if(clickedEl !== arr[counter++] )  {//if user clicked not right
+        if(clickedEl !== arr[counter] )  {//if user clicked not right
             roundResult(false)
-        }  else {
+        }  else if(clickedEl === arr[counter] && counter === arr.length-1) {
             roundResult(true)
         }
-        
+        counter++
     }))
  
 }
@@ -78,4 +78,3 @@ function roundResult(bol) {
         textInformation.textContent = 'GOOD' ;
     }
 }
-
