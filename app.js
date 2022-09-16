@@ -1,24 +1,26 @@
 const simonBtns = document.querySelectorAll('.simonBtn button');
 const startBtn = document.querySelector('.start');
+const resetBtn = document.querySelector('.restart');
 const scoreContainer = document.querySelector('.score');
 const btnContainer = document.querySelectorAll('.simonBtn');
 const textInformation = document.querySelector('.text');
+const clickMusic = new Audio('clickVoice3.wav');
 let score = 0;
+let timer = 1;
 
 
+startBtn.addEventListener('click', startGame);
 
-startBtn.addEventListener('click', () => {
+function startGame() {
     startNextRound();
-
-    score++; scoreContainer.innerText = score;
     const result = drawSeq();
     displaySeq([...result]);
     clickPhase([...result])    
-})
+}
 
 function clickAnimation(parentItem) {
     parentItem.classList.add('clicked');
-    setTimeout( () => {parentItem.classList.remove('clicked')}, 800)
+    setTimeout( () => {parentItem.classList.remove('clicked')}, 500)
     
 }
 
@@ -31,7 +33,7 @@ function drawSeq() {
         4: 'green'
     }
 
-    for(let i=0; i<score;i++){
+    for(let i=0; i<score+1;i++){
         result.push( Simon[ Math.floor(Math.random() * 4) + 1 ] );
     }
 
@@ -39,7 +41,7 @@ function drawSeq() {
 }
 
 function displaySeq(arr) {
-
+    let waitInt = 500;
 
     setInterval( () => {
         if(arr.length === 0)  clearInterval();
@@ -50,47 +52,76 @@ function displaySeq(arr) {
                 clickAnimation(e)
             }
         })
-    }, 1000)
-
+    }, waitInt)
+    timer = arr.length * waitInt + 750;
+    console.log(timer)
 }
 
 function clickPhase(arr) {
     let counter = 0;
-    simonBtns.forEach(e => e.addEventListener('click', validor) )
-    function validor(e) {      
-        clickedEl = e.currentTarget.parentNode.dataset.color
-        if(clickedEl !== arr[counter] )  {//if user clicked not right
-            roundResult(false);
-            simonBtns.forEach(e => e.removeEventListener('click', validor))
+    setTimeout( () => {
+        textInformation.textContent = 'SIMON';
+        textInformation.classList.remove('waitInfo');
 
-        }  else if(clickedEl === arr[counter] && counter === arr.length-1) {
-            roundResult(true);
-            simonBtns.forEach(e => e.removeEventListener('click', validor))
+        simonBtns.forEach(e => e.addEventListener('click', validor) )
+        function validor(e) {
+            stopAudio()
+            clickMusic.play();
+            clickAnimation(e.currentTarget.parentNode);
+            clickedEl = e.currentTarget.parentNode.dataset.color
+            if(clickedEl !== arr[counter] )  {//if user clicked not right
+                roundResult(false);
+                simonBtns.forEach(e => e.removeEventListener('click', validor))
+
+            }  else if(clickedEl === arr[counter] && counter === arr.length-1) {
+                roundResult(true);
+                simonBtns.forEach(e => e.removeEventListener('click', validor))
+            }
+            counter++
         }
-        counter++
-    }
+    }, timer )
 }
  
 
 
-function roundResult(bol, f) {
-    
+function roundResult(bol) {
+
     textInformation.classList.remove('lostInfo');
     textInformation.classList.remove('winInfo');
     
     if(bol === false) {
         textInformation.classList.add('lostInfo');
         textInformation.textContent = 'LOST!!' ;
+        score = 0; scoreContainer.textContent = score;
+        startBtn.classList.add('hidden');
+
+        resetBtn.classList.remove('hidden');
+        resetBtn.addEventListener('click', startGame);
+
     } else if(bol === true) {
         textInformation.classList.add('winInfo');
         textInformation.textContent = 'GOOD' ;
+        score++; scoreContainer.textContent = score;
     }
+    startBtn.disabled = false;
 }
 
 function startNextRound() {
-    textInformation.textContent = "SIMON"
+    
+    resetBtn.classList.add('hidden');
+    startBtn.classList.remove('hidden');
+
+    textInformation.textContent = "WAIT!!"
     textInformation.classList.remove('lostInfo');
     textInformation.classList.remove('winInfo');
+    textInformation.classList.add('waitInfo');
+
+    startBtn.disabled = true;
 
 
+}
+
+function stopAudio() {
+    clickMusic.pause();
+    clickMusic.currentTime = 0;
 }

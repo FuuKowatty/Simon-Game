@@ -97,7 +97,7 @@ body {
     
 }
 
-.start {
+.start, .restart {
     margin: 13px 0;
     padding: 7px;
     background-color: white;
@@ -122,4 +122,13 @@ body {
 
 .winInfo {
     color: rgb(0, 219, 0);
+}
+
+.waitInfo {
+    background: rgb(255, 242, 0);
+    color: rgb(29, 27, 27);
+}
+
+.hidden {
+    display: none;
 }
