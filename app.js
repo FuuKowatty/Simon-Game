@@ -54,7 +54,6 @@ function displaySeq(arr) {
         })
     }, waitInt)
     timer = arr.length * waitInt + 750;
-    console.log(timer)
 }
 
 function clickPhase(arr) {
