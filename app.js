@@ -20,7 +20,7 @@ function startGame() {
 
 function clickAnimation(parentItem) {
     parentItem.classList.add('clicked');
-    setTimeout( () => {parentItem.classList.remove('clicked')}, 500)
+    setTimeout( () => {parentItem.classList.remove('clicked')}, 400)
     
 }
 
@@ -41,7 +41,7 @@ function drawSeq() {
 }
 
 function displaySeq(arr) {
-    let waitInt = 500;
+    let waitInt = 700;
 
     setInterval( () => {
         if(arr.length === 0)  clearInterval();
