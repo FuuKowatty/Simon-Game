@@ -25,7 +25,7 @@ function clickAnimation(parentItem) {
 }
 
 function drawSeq() {
-    let result = []
+    const result = []
     const Simon = {
         1: 'yellow',
         2: 'red',
@@ -41,7 +41,7 @@ function drawSeq() {
 }
 
 function displaySeq(arr) {
-    let waitInt = 700;
+    const waitInt = 700;
 
     setInterval( () => {
         if(arr.length === 0)  clearInterval();
@@ -85,10 +85,9 @@ function clickPhase(arr) {
 
 function roundResult(bol) {
 
-    textInformation.classList.remove('lostInfo');
-    textInformation.classList.remove('winInfo');
+    removeResultInfo()
     
-    if(bol === false) {
+    if(!bol) {
         textInformation.classList.add('lostInfo');
         textInformation.textContent = 'LOST!!' ;
         score = 0; scoreContainer.textContent = score;
@@ -97,7 +96,7 @@ function roundResult(bol) {
         resetBtn.classList.remove('hidden');
         resetBtn.addEventListener('click', startGame);
 
-    } else if(bol === true) {
+    } else if(bol) {
         textInformation.classList.add('winInfo');
         textInformation.textContent = 'GOOD' ;
         score++; scoreContainer.textContent = score;
@@ -123,4 +122,9 @@ function startNextRound() {
 function stopAudio() {
     clickMusic.pause();
     clickMusic.currentTime = 0;
+}
+
+function removeResultInfo() {
+    textInformation.classList.remove('lostInfo');
+    textInformation.classList.remove('winInfo');
 }
